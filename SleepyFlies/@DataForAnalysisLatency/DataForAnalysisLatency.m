@@ -37,12 +37,18 @@ classdef DataForAnalysisLatency < DataForAnalysisSmoothed
             obj.writeLatencyData('folderOut', folderOut, 'separateSheets',true);
         end
         
-        function [p, s, mu] = calcSlope(obj, dataIn)
+        function [a0, a1] = calcSlope(obj, dataIn)
             % This is used in calcLatencies and for plotLatencies.
             % Define it once here, in case it ever needs to change.
             % x values just need to be an array with binSize spacing,
-            % y values are the raw data 
-        	[p,s,mu] = polyfit(1:obj.BinSize:obj.BinSize*numel(dataIn), dataIn, 1);
+            % y values are the raw data
+            x=1:obj.BinSize:obj.BinSize*numel(dataIn);
+            y=dataIn;
+            X=[x,ones(numel(x),1)];
+            a = (X'*X)\(X'*y);
+            a0=a(2);
+            a1=a(1);
+        	%[p,s,mu] = polyfit(1:obj.BinSize:obj.BinSize*numel(dataIn), dataIn, 1);
         end
         
         function [fh, filenameOut] = plotData(obj, plotSettings)
