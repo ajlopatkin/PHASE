@@ -46,8 +46,8 @@ for flyIdx = 1:size(unsmoothedData,1)
             rawData = unsmoothedData(flyIdx, winStart:winStop);
         end
         % Calculate the slope from the un-smoothed data with a linear regression
-        s = obj.calcSlope(rawData);
-        s = s(1);
+        [a0, a1] = obj.calcSlope(rawData);
+        s = a0;
         % obj.BinSize should be obj.DataInterval here, but just in case it's not, this would more accurately reflect the data. 
         [l, z, a] = intervalLatencyMaxMin(obj.IsSleep, smoothData, latencyInts(lIdx,1), obj.BinSize); 
         if ~isempty(l)
