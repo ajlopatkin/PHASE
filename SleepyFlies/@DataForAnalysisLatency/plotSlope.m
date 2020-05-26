@@ -70,15 +70,15 @@ for fIdx = 1:size(y,1)
     % As of 12/20/201, skip plotting the individual points
     % plot(x, dataPts, 'o', 'markeredgecolor', palegrey);
     hold on;
-    p = obj.calcSlope(y(fIdx,:));
-    y_reg = polyval(p,x);
+    [a0, a1] = obj.calcSlope(y(fIdx,:));
+    y_reg = a0+a1*x;
     plot(x, y_reg, 'color', palegrey);
 end
 
 % Calculate the average of all flies & plot
 y = mean(y);
-p = obj.calcSlope(y);
-y_reg = polyval(p,x);
+[a0, a1] = obj.calcSlope(y);
+y_reg = a0+a1*x;
 plot(x, y_reg, 'color', darkgrey,'linewidth',2);
 
 windowHours = obj.WindowMinutes/60;
