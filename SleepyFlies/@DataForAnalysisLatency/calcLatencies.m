@@ -10,9 +10,9 @@ function calcLatencies(obj)
 
 latencyInts = obj.getLatencyIntervals();
 if obj.NormalizeActivity && ~obj.IsSleep
-    unsmoothedData = obj.NormalizedAveragedData;
+    unsmoothedData = NormalizedAveragedData;
 else
-    unsmoothedData = obj.AveragedData;
+    unsmoothedData = AveragedData;
 end
 if istable(unsmoothedData)
     unsmoothedData = table2array(unsmoothedData);
