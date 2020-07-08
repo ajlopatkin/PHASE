@@ -75,8 +75,8 @@ if separateSheets
                 latencies(f).rowLabel...
                 num2cell(latencies(f).timeZT(z,1)) num2cell(latencies(f).timeZT(z,2)) ...
                 num2cell(latencies(f).latency(z))...
-                num2cell(latencies(f).auc(z))...
-                num2cell(latencies(f).slope(z))];
+                num2cell(latencies(f).auc(z))];
+                % num2cell(latencies(f).slope(z))
         end
         %Replace infinite values with "Undefined"
        latency(:,2:end) = cleanUndefinedValues(latency(:,2:end));
@@ -85,8 +85,8 @@ if separateSheets
             {['Min ' desc ' Time (ZT)']} ...
             {['Max ' desc ' Time (ZT)']} ...
             {[metric ' (minutes)']} ... % anticpation/latency
-            {'Index (AUC)'} ... 
-            {'Slope'}; 
+            {'Index (AUC)'}; 
+            % {'Slope'}; 
             latency];
         % Save to a new sheet
         sheetName = ['ZT' num2str(zt)];
@@ -103,7 +103,7 @@ else
         % only the first row of this set with the fly information.
         latency = [latency ;...
             cell(size(latencies(z).time,1),1) num2cell(latencies(z).timeZT(:,1)) num2cell(latencies(z).timeZT(:,2)) ...
-            num2cell(latencies(z).latency) num2cell(latencies(z).auc) num2cell(latencies(z).slope)];
+            num2cell(latencies(z).latency) num2cell(latencies(z).auc)];% num2cell(latencies(z).slope)];
         latency{end-size(latencies(z).latency,1)+1,1} = latencies(z).rowLabel;
     end
     %Replace infinite values with "Undefined"
@@ -117,8 +117,8 @@ else
         {['Min ' desc ' Time (ZT)']} ...
         {['Max ' desc ' Time (ZT)']} ...
         {[metric ' (minutes)']} ... % anticpation/latency
-        {'Index (AUC)'} ... 
-        {'Slope'}; 
+        {'Index (AUC)'}; 
+        % {'Slope'}; 
         latency];
     latency(cellfun(@isempty, latency)) = {' '};
     xlfunc(outfile, latency, sheetName);
