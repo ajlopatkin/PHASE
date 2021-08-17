@@ -30,6 +30,7 @@ avgColor = darkgrey; % dark blue
 % Get the currently latency interval
 latencyInt = plotSettings.latencyInterval;
 latencyInt = latencyInt(1):latencyInt(2);
+
 % Get the data for this latency interval
 if ~obj.IsSleep && obj.NormalizeActivity
     yData = obj.NormalizedAveragedData;
@@ -41,43 +42,59 @@ if istable(yData)
 else
     y = ydData;
 end
+
 y = y(:,latencyInt);
 ymin = min(y(:));
-ymax = max(y(:));
+ymax = 0;
 yrange = ymax-ymin;
 
 % Get the relevant x values
 x = obj.BinCenters(1:numel(latencyInt));
 
+%For activity, bin the points in 15-minute bins so they're easier
+%to see.
+plotBinMinutes = 30;
+ptsPerBin = plotBinMinutes/obj.DataInterval;
+binHours=plotBinMinutes/60;
+
 % Plot the points and regression line for each fly
 for fIdx = 1:size(y,1)
-    useAverage=true;
     dataPts = y(fIdx,:);
-    if ~obj.IsSleep && useAverage
-        %For activity, bin the points in 30-minute bins so they're easier
-        %to see.
-        plotBinMinutes = 30;
-        ptsPerBin = plotBinMinutes/obj.DataInterval;
-        totalBins = floor(size(dataPts, 2)/ptsPerBin);
-
+    useAverage=true;
+    if ~obj.IsSleep && useAverage 
         % Trim the data to only as much as we need for even bins
+        totalBins = floor(size(dataPts, 2)/ptsPerBin);
         dataPts = dataPts(1:ptsPerBin*totalBins);
         dataPts = reshape(dataPts, ptsPerBin, totalBins, size(dataPts,1), []);
         dataPts = sum(dataPts, 1); 
-        binHours=plotBinMinutes/60;
         x = binHours/2 : binHours : binHours*size(dataPts,2) ;
     end
     % As of 12/20/201, skip plotting the individual points
     % plot(x, dataPts, 'o', 'markeredgecolor', palegrey);
+    
+    % AJL: this averaging should be done on binned data and ZT x-axis, not
+    % on the raw y data.
     hold on;
-    [a0, a1] = obj.calcSlope(y(fIdx,:));
+    %[a0, a1] = obj.calcSlope(dataPts);
+    p = polyfit(x,dataPts,1);
+    a0 = p(1); a1 = p(2);
     y_reg = a0+a1*x;
     plot(x, y_reg, 'color', palegrey);
+    ymax=max(ymax,max(y_reg));
 end
 
 % Calculate the average of all flies & plot
-y = mean(y);
-[a0, a1] = obj.calcSlope(y);
+% AJL: This should be done on binned data, as per above
+dataPts = mean(y,1);
+if ~obj.IsSleep
+    totalBins = floor(size(dataPts, 2)/ptsPerBin);
+    dataPts = dataPts(1:ptsPerBin*totalBins);
+    dataPts = reshape(dataPts, ptsPerBin, totalBins, size(dataPts,1), []);
+    dataPts = sum(dataPts, 1); 
+end
+%[a0, a1] = obj.calcSlope(dataPts);
+p = polyfit(x, dataPts, 1);
+a0 = p(1); a1 = p(2);
 y_reg = a0+a1*x;
 plot(x, y_reg, 'color', darkgrey,'linewidth',2);
 
@@ -94,9 +111,9 @@ else
     fLabel = 'ActivityAnticipationSlope_';
     if obj.NormalizeActivity
         fLabel = ['Normalized'  fLabel];
-        ylim([min(ymin,0) 0.01]);
+        ylim([min(ymin,0) ymax]);
     else 
-        ylim([min(ymin,0) 8]);
+        ylim([min(ymin,0) ymax]);
     end
     desc = ' Activity Intensity';
     xtkZTs = mod(latencyZT-windowHours:.5:latencyZT, obj.DayLength);

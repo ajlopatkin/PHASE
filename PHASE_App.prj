@@ -1,0 +1,110 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="1174908841" file="/Users/gregory.wood/Documents/MATLAB/PHASE-master/PHASE_App.prj" location="/Users/gregory.wood/Documents/MATLAB/PHASE-master" name="PHASE_App" target="target.mlapps" target-name="Package App">
+    <param.appname>PHASE_App</param.appname>
+    <param.authnamewatermark>Allison Lopatkin</param.authnamewatermark>
+    <param.email />
+    <param.company />
+    <param.icon />
+    <param.icons />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.version>6.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}</param.output>
+    <param.guid>ea749ef3-2e68-474e-8ff3-e6b305cb497b</param.guid>
+    <unset>
+      <param.email />
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/PHASE_App.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}/Averaging.m</file>
+      <file>${PROJECT_ROOT}/PageMultiPlots.m</file>
+      <file>${PROJECT_ROOT}/PlotType.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataExperiment/DataExperiment.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataExperiment/findBinByDatetime.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataExperiment/getDayData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataExperiment/makeDayNightMask.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/DataForAnalysis.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/buildPlotSettings.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/calcAveraged.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/calcDayCentered.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/convertToSleep.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/getAnalysisData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/layerDataForAveraging.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/normalizeData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/plotBars.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/plotLine.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysis/reBinData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisAS/DataForAnalysisAS.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisAS/experimentStatistics.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisAS/writeExperimentData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisLatency/DataForAnalysisLatency.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisLatency/calcLatencies.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisLatency/getLatencyIntervals.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisLatency/plotLatency.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisLatency/plotSlope.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisLatency/writeLatencyData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisPhase/DataForAnalysisPhase.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisPhase/calcPhase.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisPhase/plotPhase.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisPhase/writePhaseData.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataForAnalysisSmoothed/DataForAnalysisSmoothed.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataRaw/DataRaw.m</file>
+      <file>${PROJECT_ROOT}/SleepyFlies/@DataRaw/importFlyData.m</file>
+      <file>${PROJECT_ROOT}/SupportFiles/barwitherr.m</file>
+      <file>${PROJECT_ROOT}/SupportFiles/findseq.m</file>
+      <file>${PROJECT_ROOT}/SupportFiles/shadedErrorBar.m</file>
+      <file>${PROJECT_ROOT}/SupportFiles/table2labeledcells.m</file>
+      <file>${PROJECT_ROOT}/SupportFiles/xlwrite.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="/Users/gregory.wood/Documents/MATLAB" name="PHASE-master" optional="false">/Users/gregory.wood/Documents/MATLAB/PHASE-master</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2021a.app</root>
+      <toolboxes>
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.15.7</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

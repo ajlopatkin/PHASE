@@ -20,6 +20,7 @@ latencyBins = obj.WindowMinutes/obj.DataInterval;
 
 % Adjust window-setting ZTs to account for day-centering of data, so
 % windowZTs represents where the desired ZTs fall in the data permutation
+
 windowZTs = obj.WindowZTs + obj.AnalysisLightStart; % plotStartToExpStartHours; 
 % Convert that to a data index
 ztIdx = (60 / obj.DataInterval) .* windowZTs + 1; 

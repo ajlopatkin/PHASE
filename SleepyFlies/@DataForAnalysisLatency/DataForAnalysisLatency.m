@@ -42,13 +42,28 @@ classdef DataForAnalysisLatency < DataForAnalysisSmoothed
             % Define it once here, in case it ever needs to change.
             % x values just need to be an array with binSize spacing,
             % y values are the raw data
-            x=1:obj.BinSize:obj.BinSize*numel(dataIn);
-            y=dataIn;
-            X=[x,ones(numel(x),1)];
-            a = (X'*X)\(X'*y);
-            a0=a(2);
-            a1=a(1);
-        	%[p,s,mu] = polyfit(1:obj.BinSize:obj.BinSize*numel(dataIn), dataIn, 1);
+            
+            % AJL: changed this to be consistent with plotSlope.m method of
+            % calculating slope- i.e., use binned, not raw, data
+            
+%             x=1:obj.BinSize:obj.BinSize*numel(dataIn);
+%             y=dataIn;
+%             X=[x',ones(numel(x),1)];
+%             a = (X'*X)\(X'*y');
+%             a = polyfit(x,y,1);
+%             a0=a(1);
+%             a1=a(2);
+            plotBinMinutes = 30;
+            binHours=plotBinMinutes/60;
+            ptsPerBin = plotBinMinutes/obj.DataInterval;
+            totalBins = floor(size(dataIn, 2)/ptsPerBin);
+            dataPts = dataIn(1:ptsPerBin*totalBins);
+            dataPts = reshape(dataPts, ptsPerBin, totalBins, size(dataPts,1), []);
+            x = binHours/2 : binHours : binHours*size(dataPts,2) ;
+            dataPts = sum(dataPts, 1); 
+        	p = polyfit(x, dataPts, 1);
+            a0 = p(1);
+            a1 = p(2);
         end
         
         function [fh, filenameOut] = plotData(obj, plotSettings)

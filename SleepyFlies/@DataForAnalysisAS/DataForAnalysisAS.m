@@ -14,6 +14,9 @@ classdef DataForAnalysisAS < DataForAnalysis
                     % For activity data, plots should be done with normalized
                     % data. This is only for averaged analysis; normalized
                     % analysis does its own separate normalization.
+                    %
+                    % AJL: the below data is not "normalized" in the sense
+                    % of other normalization- it's just divided by BinSize.
                     obj.PlotData = obj.NormalizedPlotData;
                 end
             end

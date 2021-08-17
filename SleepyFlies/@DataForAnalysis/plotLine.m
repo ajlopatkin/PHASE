@@ -47,7 +47,8 @@ plotData = obj.PlotData(:,:,plotSettings.pIdx);
 plotData(:,end+1) = plotData(:,1);
 
 % This is the function to use for calculating error bars
-errFunc = @(x) obj.DataInterval * std(x,1) / size(plotData,1);
+% AJL: add sqrt() to compute proper SEM
+errFunc = @(x) obj.DataInterval * std(x,1) / sqrt(size(plotData,1));
 % If there's a useErrorBars field in plotSettings, use that to determine
 % whether or not to plot error bars. Default to true if not found.
 if isfield(plotSettings, 'useErrorBars')

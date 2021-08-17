@@ -47,30 +47,32 @@ else
     % Day centering should happen whenever the output plot will have a
     % single day's worth of data (averaging by days, or by flies on a
     % single day)
-    if AVG_DAYS || AVG_BOTH || (AVG_FLIES && dayCount==1)
-    % Shift the data around so that the daylight hours are in the middle.
-        halfDarkHours = (obj.DayLength - obj.LightHours)/2;
-        plotStartToExpStartHours = halfDarkHours - obj.LightsOn;
-        plotStartToExpStartBins = floor(plotStartToExpStartHours * 60/obj.BinSize);
-        % Shift by that much along the column axis, but only if we're
-        % averaging by day or both
-        ctrData = circshift(dataIn, plotStartToExpStartBins, 2);
-        mask = circshift(mask, plotStartToExpStartBins, 1);
-        %binCtrs = circshift(obj.BinCenters, plotStartToExpBins, 1);
-        % Shift the column labels too, I think
-        colLabels = circshift(colLabels, plotStartToExpStartBins, 2);
-        
-        %halfDarkBins = floor(halfDarkHours*60 / settings.binSize) * binHours;
-        % Keep track of when light start & stop occur relative to the data,
-        % in hours, because that's how the x-axis of the plots are
-        % displayed.
-        lightStart = halfDarkHours;
-        lightStop = halfDarkHours + obj.LightHours;
-    else
+    % 
+    % AJL: as of 4/2021, don't center data at all (skip this section)
+%     if AVG_DAYS || AVG_BOTH || (AVG_FLIES && dayCount==1)
+%     % Shift the data around so that the daylight hours are in the middle.
+%         halfDarkHours = (obj.DayLength - obj.LightHours)/2;
+%         plotStartToExpStartHours = halfDarkHours - obj.LightsOn;
+%         plotStartToExpStartBins = floor(plotStartToExpStartHours * 60/obj.BinSize);
+%         % Shift by that much along the column axis, but only if we're
+%         % averaging by day or both
+%         ctrData = circshift(dataIn, plotStartToExpStartBins, 2);
+%         mask = circshift(mask, plotStartToExpStartBins, 1);
+%         %binCtrs = circshift(obj.BinCenters, plotStartToExpBins, 1);
+%         % Shift the column labels too, I think
+%         colLabels = circshift(colLabels, plotStartToExpStartBins, 2);
+%         
+%         %halfDarkBins = floor(halfDarkHours*60 / settings.binSize) * binHours;
+%         % Keep track of when light start & stop occur relative to the data,
+%         % in hours, because that's how the x-axis of the plots are
+%         % displayed.
+%         lightStart = halfDarkHours;
+%         lightStop = halfDarkHours + obj.LightHours;
+%     else
         lightStart = obj.LightsOn;
         lightStop = lightStart + obj.LightHours;
         ctrData = dataIn;
-    end
+%     end
 end
 
 obj.ColumnLabels = colLabels;

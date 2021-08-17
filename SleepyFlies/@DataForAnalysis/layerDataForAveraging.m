@@ -65,19 +65,26 @@ if AVG_DAYS
     rowLabels = strcat('M', arrayfun(@(x) sprintf("%03d", x), obj.Boards'), 'C', arrayfun(@(x) sprintf("%02d", x), obj.Channels'));
     rowLabels = cellstr(rowLabels);
 elseif AVG_BOTH
+    % AJL: this code did the averaging in the wrong order- fixed below
+    % --- ORIGINAL CODE --- %
     % First average by flies, and then pass this data in to be averaged by
     % day (so the error function will be calculated on the days, not the
     % flies & days both)
-    plotData = mean(dataByDay, 3);
+%    plotData = mean(dataByDay, 3);
     % That gave us bins x days; we need to end up with days x bins
-    plotData = plotData';
+%    plotData = plotData';
     
     % Reshape to a single layer (this method results in the flies & days
     % being averaged all at once and the std. error being calculated on
     % that, rather than just on the day average of the averaged flies)
-    % plotData = reshape(permute(dataByDay, [2 3 1]), [], binsPerDay, 1);
+%    colLabels = 0:binSize:binSize*(binsPerDay-1);
+%    rowLabels = {'Average Over Flies and Days'};
+    % --- END ORIGINAL CODE --- %
+    
+    plotData = squeeze(mean(dataByDay,2))';
     colLabels = 0:binSize:binSize*(binsPerDay-1);
     rowLabels = {'Average Over Flies and Days'};
+    
 elseif AVG_FLIES
     % This will give one plot not averaged by days, so we need to use
     % binData, not dataByDay, but flip it so we have one row per fly

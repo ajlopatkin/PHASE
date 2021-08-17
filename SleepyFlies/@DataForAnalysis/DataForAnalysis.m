@@ -89,6 +89,7 @@ classdef DataForAnalysis < DataExperiment & matlab.mixin.Copyable
             % plotData = obj.layerDataForAveraging(obj.AnalysisData);
             % layerDataForAveraging also updates RowLabels and ColumnLabels
             obj.PlotData = obj.calcDayCentered(plotData);
+            % obj.PlotData = plotData;
             binHours = obj.BinSize/60;
             obj.BinCenters = binHours/2 : binHours : binHours*size(obj.PlotData,2) ;
             % calcDayCentered updates ColumnLabels

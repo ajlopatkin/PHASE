@@ -10,9 +10,9 @@ function calcLatencies(obj)
 
 latencyInts = obj.getLatencyIntervals();
 if obj.NormalizeActivity && ~obj.IsSleep
-    unsmoothedData = NormalizedAveragedData;
+    unsmoothedData = obj.NormalizedAveragedData;
 else
-    unsmoothedData = AveragedData;
+    unsmoothedData = obj.AveragedData;
 end
 if istable(unsmoothedData)
     unsmoothedData = table2array(unsmoothedData);
@@ -24,14 +24,14 @@ latencies(size(unsmoothedData,1)).time = []; % relative to x-axis -- this is use
 latencies(size(unsmoothedData,1)).timeZT = []; % relative to ZT0
 latencies(size(unsmoothedData,1)).loc = []; %index in data array
 latencies(size(unsmoothedData,1)).auc = []; 
-% latencies(size(unsmoothedData,1)).slope = [];
+latencies(size(unsmoothedData,1)).slope = [];
 for flyIdx = 1:size(unsmoothedData,1)
     latency = zeros(size(latencyInts,1), 1);
     time = zeros(size(latencyInts,1), 2);
     timeZT = zeros(size(latencyInts,1), 2);
     loc = zeros(size(latencyInts, 1),2);
     auc = zeros(size(latencyInts,1),1);
-    % slope = zeros(size(latencyInts,1),1);
+    slope = zeros(size(latencyInts,1),1);
     for lIdx = 1:size(latencyInts,1)
         % Get the current latency (or anticipation) window
         winStart = latencyInts(lIdx,1);
@@ -46,8 +46,8 @@ for flyIdx = 1:size(unsmoothedData,1)
             rawData = unsmoothedData(flyIdx, winStart:winStop);
         end
         % Calculate the slope from the un-smoothed data with a linear regression
-        % [a0, a1] = obj.calcSlope(rawData);
-        % s = a0;
+        s = obj.calcSlope(rawData);
+        s = s(1);
         % obj.BinSize should be obj.DataInterval here, but just in case it's not, this would more accurately reflect the data. 
         [l, z, a] = intervalLatencyMaxMin(obj.IsSleep, smoothData, latencyInts(lIdx,1), obj.BinSize); 
         if ~isempty(l)
@@ -55,7 +55,7 @@ for flyIdx = 1:size(unsmoothedData,1)
             loc(lIdx,:) = z.minutes;
             time(lIdx,:) = z.zt; % this is the data for plotting
             auc(lIdx) = a;
-            % slope(lIdx) = s;
+            slope(lIdx) = s;
         end
     end
     % halfDarkHours = (obj.DayLength - obj.LightHours)/2;
@@ -66,7 +66,7 @@ for flyIdx = 1:size(unsmoothedData,1)
     latencies(flyIdx).time = time;
     latencies(flyIdx).timeZT = mod(time-obj.AnalysisLightStart, obj.DayLength);
     latencies(flyIdx).auc = auc;
-    % latencies(flyIdx).slope = slope;
+    latencies(flyIdx).slope = slope;
     latencies(flyIdx).loc = loc;
 end
 

@@ -70,6 +70,10 @@ else
         % normalizedData = reshape(permute(normalizedData, [3 2 1]), size(dataIn));
         normalizedData = reshape(permute(normalizedData, [2 1 3]), size(dataIn));
     elseif AVG_DAYS || AVG_BOTH
+        
+        % AJL: changed this to use the individual day totals instead of an
+        % averaged version.
+        
         % Do the same as for flies, but average the total by day before using
         % for normalization.
         % We need the sum for each fly for each day, so rearrange
@@ -79,12 +83,15 @@ else
         % Sum these counts by day to get a [2 1 3] array
         flyTotalByDay = sum(flyByDay, 2);
         % Average by day to get a day average per fly, [3 1] array
-        flyDayAverage = squeeze(mean(flyTotalByDay, 1));
-        %Repeat to get a per-bin value [3 96]
-        flyDayAverageByBins = repmat(flyDayAverage, 1, size(dataIn,1));
+        % flyDayAverage = squeeze(mean(flyTotalByDay, 1));
+        flyDayReshape = reshape(squeeze(flyTotalByDay)',size(dataIn,2),[]);
+        % Repeat to get a per-bin value [3 96]
+        % flyDayAverageByBins = repmat(flyDayAverage, 1, size(dataIn,1));
+        flyDayByBins = repelem(flyDayReshape,1,24*60/obj.BinSize);
         % Divide each fly's value within each bin by the day-averaged total for
         % the fly
-        normalizedData = dataIn./flyDayAverageByBins';
+        % normalizedData = dataIn./flyDayAverageByBins';
+        normalizedData = dataIn./flyDayByBins';
     end
 end
 
