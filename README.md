@@ -2,7 +2,7 @@
 
 ### PHASE ###
 This project was developed as a replacement for an Excel macro in use
-by the Shafer Lab, 2018-2019. The current working version of both the MATLAB app and the compiled standalones is 4.2.
+by the Shafer Lab, 2018-2019. The current working version of both the MATLAB app and the compiled standalones is 7.0.
 
 This is a MATLAB GUI that reads .txt files output from TriKinetics activity monitors and does activity, sleep, and entrainment analysis on the file data. It outputs the results in Excel files and MATLAB plots in both pdf and fig formats.
 
@@ -71,4 +71,4 @@ will run but will not be able to do any analysis requiring data smoothing; a war
 ### Contact Details ###
 
 This program was primarily developed by Abbey Roelofs, University of Michigan LSA Technology Services.
-Email lsait-ars@umich.edu for future assistance with this program.
+This branch is maintained by the Lopatkin Lab at Barnard College. Please use this Github repo for bug fix/enhancement requests.
