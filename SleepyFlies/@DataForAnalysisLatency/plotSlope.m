@@ -75,10 +75,10 @@ for fIdx = 1:size(y,1)
     % AJL: this averaging should be done on binned data and ZT x-axis, not
     % on the raw y data.
     hold on;
-    %[a0, a1] = obj.calcSlope(dataPts);
+    % [a0, a1] = obj.calcSlope(dataPts);
     p = polyfit(x,dataPts,1);
     a0 = p(1); a1 = p(2);
-    y_reg = a0+a1*x;
+    y_reg = a1+a0*x;
     plot(x, y_reg, 'color', palegrey);
     ymax=max(ymax,max(y_reg));
 end
@@ -95,7 +95,7 @@ end
 %[a0, a1] = obj.calcSlope(dataPts);
 p = polyfit(x, dataPts, 1);
 a0 = p(1); a1 = p(2);
-y_reg = a0+a1*x;
+y_reg = a1+a0*x;
 plot(x, y_reg, 'color', darkgrey,'linewidth',2);
 
 windowHours = obj.WindowMinutes/60;
