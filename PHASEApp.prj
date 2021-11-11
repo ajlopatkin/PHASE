@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="/Users/gregory.wood/Documents/MATLAB/PHASE-master/PHASEApp.prj" location="/Users/gregory.wood/Documents/MATLAB/PHASE-master" name="PHASEApp" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration file="PHASEApp.prj" location="../PHASE-master" name="PHASEApp" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>PHASEApp</param.appname>
     <param.icon />
     <param.icons />
@@ -131,10 +131,10 @@ ${DYLD_LIBRARY_PATH}:MR/v910/runtime/maci64:MR/v910/sys/os/maci64:MR/v910/bin/ma
       <file>${PROJECT_ROOT}/SupportFiles/xlwrite.m</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="PHASEApp.app" optional="false">/Users/gregory.wood/Documents/MATLAB/PHASE-master/PHASEApp/for_testing/PHASEApp.app</file>
-      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="run_PHASEApp.sh" optional="false">/Users/gregory.wood/Documents/MATLAB/PHASE-master/PHASEApp/for_testing/run_PHASEApp.sh</file>
-      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="readme.txt" optional="true">/Users/gregory.wood/Documents/MATLAB/PHASE-master/PHASEApp/for_testing/readme.txt</file>
-      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="splash.png" optional="false">/Users/gregory.wood/Documents/MATLAB/PHASE-master/PHASEApp/for_testing/splash.png</file>
+      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="PHASEApp.app" optional="false">../PHASE-master/PHASEApp/for_testing/PHASEApp.app</file>
+      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="run_PHASEApp.sh" optional="false">../PHASE-master/PHASEApp/for_testing/run_PHASEApp.sh</file>
+      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="readme.txt" optional="true">../PHASE-master/PHASEApp/for_testing/readme.txt</file>
+      <file location="${PROJECT_ROOT}/PHASEApp/for_testing" name="splash.png" optional="false">../PHASE-master/PHASEApp/for_testing/splash.png</file>
     </build-deliverables>
     <workflow />
     <matlab>
